@@ -27,8 +27,7 @@ website:
         href: https://open.spotify.com/artist/61pEtv6jEM12tiHXu9e04Y
 format:
   html:
-    theme: minty
-    css: styles.css
+    theme: [journal, custom.scss]
 
 execute:
   freeze: auto
