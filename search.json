@@ -1,17 +1,45 @@
 [
   {
-    "objectID": "blogs.html",
-    "href": "blogs.html",
-    "title": "Blogs",
+    "objectID": "my-story.html",
+    "href": "my-story.html",
+    "title": "A Symphony of Numbers, Beats, and City Streets",
     "section": "",
-    "text": "Modal Soul: A Love Letter to Music\n\n\n\nmusic\n\n\nalbum review\n\n\nhip-hop\n\n\n\n\n\n\n\nYohanes Jhouma Parulian N\n\n\nAug 14, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Hey there! I’m Yohanes Jhouma Parulian Napitupulu (my friends call me Yoma), and my life is a bit like a mash-up track—blending the precision of data, the rhythm of hip-hop, and the flow of city transit into one unique composition."
   },
   {
-    "objectID": "projects.html",
-    "href": "projects.html",
-    "title": "Projects",
+    "objectID": "my-story.html#the-data-scientist-where-math-meets-machines",
+    "href": "my-story.html#the-data-scientist-where-math-meets-machines",
+    "title": "A Symphony of Numbers, Beats, and City Streets",
+    "section": "The Data Scientist: Where Math Meets Machines",
+    "text": "The Data Scientist: Where Math Meets Machines\nMy love affair with numbers started early. Growing up, I was that kid who got excited about math problems. But it wasn’t until I stepped into the halls of Institut Teknologi Bandung that I found my true calling. Studying computer science, I was on a mission to find the sweet spot where quantitative thinking meets the digital world. That’s when I stumbled upon the wonderland of Data Science and Machine Learning.\nNow, I spend my days turning raw data into stories, finding patterns in the chaos, and teaching machines to think. It’s like being a modern-day alchemist, but instead of turning lead into gold, I’m transforming numbers into insights that can change the game for businesses and beyond."
+  },
+  {
+    "objectID": "my-story.html#the-beat-maker-sampling-lifes-rhythms",
+    "href": "my-story.html#the-beat-maker-sampling-lifes-rhythms",
+    "title": "A Symphony of Numbers, Beats, and City Streets",
+    "section": "The Beat Maker: Sampling Life’s Rhythms",
+    "text": "The Beat Maker: Sampling Life’s Rhythms\nBut when the sun goes down, I trade algorithms for audio samples. Music has always been my first love, with hip-hop stealing my heart. There’s something magical about this genre—it’s complex yet simple, raw yet refined. I’m fascinated by the art of sampling, the way it weaves the old with the new to create something entirely fresh.\nMy journey as a music producer kicked off when Tyler, the Creator’s “IGOR” hit my eardrums. That album? Pure sonic poetry. It was like someone flipped a switch in my brain, and suddenly, I had to create. Now, I’m on a mission to craft beats that make heads nod and hearts soar, blending the gritty authenticity of hip-hop with my own unique flavor."
+  },
+  {
+    "objectID": "my-story.html#the-transit-enthusiast-dreaming-of-a-connected-jakarta",
+    "href": "my-story.html#the-transit-enthusiast-dreaming-of-a-connected-jakarta",
+    "title": "A Symphony of Numbers, Beats, and City Streets",
+    "section": "The Transit Enthusiast: Dreaming of a Connected Jakarta",
+    "text": "The Transit Enthusiast: Dreaming of a Connected Jakarta\nBy day, I’m part of the pulsing lifeblood of Jakarta, riding its buses and trains to work. But I’m not just any commuter—I’m a dreamer with a vision of a Jakarta where public transit is the first choice, not the last resort. Every day, as I navigate the city’s arteries, I’m imagining a future where the majority of Jakartans leave their cars at home, opting instead for a seamless, efficient public transportation network.\nIt’s more than just a pipe dream. It’s about transforming our urban landscape, reducing our carbon footprint, and bringing people together in shared spaces. Who knows? Maybe one day, my data skills and my passion for urban planning will intersect to help make this vision a reality."
+  },
+  {
+    "objectID": "my-story.html#the-human-equation-where-it-all-comes-together",
+    "href": "my-story.html#the-human-equation-where-it-all-comes-together",
+    "title": "A Symphony of Numbers, Beats, and City Streets",
+    "section": "The Human Equation: Where It All Comes Together",
+    "text": "The Human Equation: Where It All Comes Together\nYou might wonder how data science, hip-hop production, and public transportation fit together. Well, they don’t—at least not in any conventional sense. But that’s what makes life beautiful, isn’t it? I’m not just a data scientist who happens to make music, or a beat maker with a weird obsession with bus routes. I’m a human being, constantly inspired by the world around me, driven by the things I consume, the dreams I harbor, and the environment that shapes me.\nIn my work, my music, and my aspirations for my city, you’ll find echoes of each part of me. The precision of data science influences the structure of my beats. The creativity of music production inspires new ways to visualize data. And my daily commute? It’s the perfect time to let all these ideas mingle and give birth to new ones.\n\nSo, welcome to my digital home. Whether you’re here to geek out over some data science projects, vibe to my latest tracks, or join me in reimagining urban mobility, you’re in for a ride. This is where all my passions converge—a testament to the beautiful complexity of being human in a world full of inspiration.\nLet’s explore, create, and dream together. Who knows? We might just change the world—or at least make it dance to a better beat."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome",
     "section": "",
-    "text": "Date\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nJun 15, 2024\n\n\nCreating a Content-based Recommender System\n\n\nYohanes Jhouma Parulian N\n\n\n\n\n\nNo matching items"
+    "text": "Hi, I’m Yoma—a data scientist by day, turning numbers into insights, and a music producer by night, crafting beats. When I’m not immersed in data or music, you can find me geeking out over public transportation systems, especially in Jakarta. Discover more about my journey here, or learn about my data career here."
   },
   {
     "objectID": "projects/content-based-recommender/index.html",
@@ -119,11 +147,18 @@
     "text": "Running the Recommender Function\nNow let’s use this recommender system to recommend movies to our friend who just watched Batman Begins.\n\nmovies_list[movies_list['original_title'].str.contains('Batman')]\n\n\n\n\n\n\n\n\nid\noriginal_title\n\n\n\n\n9\n209112\nBatman v Superman: Dawn of Justice\n\n\n119\n272\nBatman Begins\n\n\n210\n415\nBatman & Robin\n\n\n299\n414\nBatman Forever\n\n\n428\n364\nBatman Returns\n\n\n1359\n268\nBatman\n\n\n3853\n142061\nBatman: The Dark Knight Returns, Part 2\n\n\n4265\n2661\nBatman\n\n\n\n\n\n\n\n\nbatman_begins_id = 272\n\n\nfind_similar_movie_using_similarity(batman_begins_id)\n\n\n\n\n\n\n\n\nid\noriginal_title\nsimilarity_score\n\n\n\n\n65\n155\nThe Dark Knight\n0.792444\n\n\n3\n49026\nThe Dark Knight Rises\n0.770914\n\n\n3325\n312113\nBlack November\n0.663642\n\n\n1742\n254473\nBrick Mansions\n0.659899\n\n\n4634\n378237\nAmidst the Devil's Wings\n0.630629\n\n\n3358\n22314\nIn Too Deep\n0.625375\n\n\n1486\n7220\nThe Punisher\n0.624695\n\n\n3818\n34769\nDefendor\n0.622456\n\n\n3827\n9516\nMenace II Society\n0.612793\n\n\n1661\n9989\nAntitrust\n0.607391\n\n\n\n\n\n\n\nAs can be seen from our algorithm, when asked to recommend movies like “Batman Begins,” it recommends “The Dark Knight” and “The Dark Knight Rises,” which are sequels to the movie. On top of that, we also see movies with some detective and superhero vibes. This indicates that our content-based recommender system is effectively identifying and recommending movies that share significant characteristics with the user’s input, thus providing relevant and meaningful suggestions."
   },
   {
-    "objectID": "resume.html",
-    "href": "resume.html",
-    "title": "My Experiences",
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
     "section": "",
-    "text": "With nearly two years of experience as a data scientist, I’ve had the chance to dive deep into advanced analytics and machine learning, helping to turn complex data into actionable insights. From creating dashboards that keep teams in the loop to building models that predict user behavior, I’ve enjoyed working on projects that make a real impact. I’m all about automating processes and finding creative ways to solve problems, all while staying curious and passionate about what I do.\nYou can check out my full resume below for more details."
+    "text": "Date\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nJun 15, 2024\n\n\nCreating a Content-based Recommender System\n\n\nYohanes Jhouma Parulian N\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "blogs.html",
+    "href": "blogs.html",
+    "title": "Blogs",
+    "section": "",
+    "text": "Modal Soul: A Love Letter to Music\n\n\n\nmusic\n\n\nalbum review\n\n\nhip-hop\n\n\n\n\n\n\n\nYohanes Jhouma Parulian N\n\n\nAug 14, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "blogposts/modal-soul-review/index.html",
@@ -154,45 +189,10 @@
     "text": "Personal Resonance: My Journey Through Modal Soul\nThis album isn’t just a collection of tracks; it’s a gateway, a portal into the rich, textured world of Nujabes’ musical genius.\nFor anyone looking to explore Nujabes’ discography, Modal Soul is the perfect launching pad. It’s like being handed a masterfully crafted map before embarking on an epic journey. Each track is a stepping stone, guiding you deeper into the lush soundscapes that define Nujabes’ unique style.\nNow, let’s be real - no album is perfect, and Modal Soul has its peaks and valleys. But here’s the thing: even in its low moments, there’s a sense of intentionality. It’s as if Nujabes carefully orchestrated every high and low, creating a musical journey that mimics the ebbs and flows of life itself. Nothing feels out of place or accidental; every note, every sample, every beat feels like it’s exactly where it’s meant to be.\nWhat struck me most was Nujabes’ approach to sampling. It’s not just about finding a cool sound to loop. No, it’s much more than that. Listening to Modal Soul feels like you’re privy to Nujabes’ love letter to music itself. Each sample is treated with reverence, carefully woven into the fabric of the song in a way that honors its origin while creating something entirely new. It’s not appropriation; it’s a celebration, an homage to the music that inspired him.\nSo, who should listen to this album? Well, if you’re a fan of old-school boom-bap hip-hop, this is a no-brainer. Jazz enthusiasts? You’re in for a treat. But honestly, I’d go further. I’d recommend Modal Soul to anyone who appreciates music, period. There’s something in this album for everyone - a groove, a melody, a mood that will resonate with you, regardless of your usual musical preferences.\nIn the end, Modal Soul isn’t just an album you listen to; it’s an experience you immerse yourself in. It’s a testament to Nujabes’ artistry, a benchmark in the evolution of hip-hop, and a timeless piece of music that continues to inspire and move listeners. Whether you’re discovering Nujabes for the first time or revisiting this classic, Modal Soul promises a journey through sound that you won’t soon forget."
   },
   {
-    "objectID": "my-story.html",
-    "href": "my-story.html",
-    "title": "A Symphony of Numbers, Beats, and City Streets",
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "My Experiences",
     "section": "",
-    "text": "Hey there! I’m Yohanes Jhouma Parulian Napitupulu (my friends call me Yoma), and my life is a bit like a mash-up track—blending the precision of data, the rhythm of hip-hop, and the flow of city transit into one unique composition."
-  },
-  {
-    "objectID": "my-story.html#the-data-scientist-where-math-meets-machines",
-    "href": "my-story.html#the-data-scientist-where-math-meets-machines",
-    "title": "A Symphony of Numbers, Beats, and City Streets",
-    "section": "The Data Scientist: Where Math Meets Machines",
-    "text": "The Data Scientist: Where Math Meets Machines\nMy love affair with numbers started early. Growing up, I was that kid who got excited about math problems. But it wasn’t until I stepped into the halls of Institut Teknologi Bandung that I found my true calling. Studying computer science, I was on a mission to find the sweet spot where quantitative thinking meets the digital world. That’s when I stumbled upon the wonderland of Data Science and Machine Learning.\nNow, I spend my days turning raw data into stories, finding patterns in the chaos, and teaching machines to think. It’s like being a modern-day alchemist, but instead of turning lead into gold, I’m transforming numbers into insights that can change the game for businesses and beyond."
-  },
-  {
-    "objectID": "my-story.html#the-beat-maker-sampling-lifes-rhythms",
-    "href": "my-story.html#the-beat-maker-sampling-lifes-rhythms",
-    "title": "A Symphony of Numbers, Beats, and City Streets",
-    "section": "The Beat Maker: Sampling Life’s Rhythms",
-    "text": "The Beat Maker: Sampling Life’s Rhythms\nBut when the sun goes down, I trade algorithms for audio samples. Music has always been my first love, with hip-hop stealing my heart. There’s something magical about this genre—it’s complex yet simple, raw yet refined. I’m fascinated by the art of sampling, the way it weaves the old with the new to create something entirely fresh.\nMy journey as a music producer kicked off when Tyler, the Creator’s “IGOR” hit my eardrums. That album? Pure sonic poetry. It was like someone flipped a switch in my brain, and suddenly, I had to create. Now, I’m on a mission to craft beats that make heads nod and hearts soar, blending the gritty authenticity of hip-hop with my own unique flavor."
-  },
-  {
-    "objectID": "my-story.html#the-transit-enthusiast-dreaming-of-a-connected-jakarta",
-    "href": "my-story.html#the-transit-enthusiast-dreaming-of-a-connected-jakarta",
-    "title": "A Symphony of Numbers, Beats, and City Streets",
-    "section": "The Transit Enthusiast: Dreaming of a Connected Jakarta",
-    "text": "The Transit Enthusiast: Dreaming of a Connected Jakarta\nBy day, I’m part of the pulsing lifeblood of Jakarta, riding its buses and trains to work. But I’m not just any commuter—I’m a dreamer with a vision of a Jakarta where public transit is the first choice, not the last resort. Every day, as I navigate the city’s arteries, I’m imagining a future where the majority of Jakartans leave their cars at home, opting instead for a seamless, efficient public transportation network.\nIt’s more than just a pipe dream. It’s about transforming our urban landscape, reducing our carbon footprint, and bringing people together in shared spaces. Who knows? Maybe one day, my data skills and my passion for urban planning will intersect to help make this vision a reality."
-  },
-  {
-    "objectID": "my-story.html#the-human-equation-where-it-all-comes-together",
-    "href": "my-story.html#the-human-equation-where-it-all-comes-together",
-    "title": "A Symphony of Numbers, Beats, and City Streets",
-    "section": "The Human Equation: Where It All Comes Together",
-    "text": "The Human Equation: Where It All Comes Together\nYou might wonder how data science, hip-hop production, and public transportation fit together. Well, they don’t—at least not in any conventional sense. But that’s what makes life beautiful, isn’t it? I’m not just a data scientist who happens to make music, or a beat maker with a weird obsession with bus routes. I’m a human being, constantly inspired by the world around me, driven by the things I consume, the dreams I harbor, and the environment that shapes me.\nIn my work, my music, and my aspirations for my city, you’ll find echoes of each part of me. The precision of data science influences the structure of my beats. The creativity of music production inspires new ways to visualize data. And my daily commute? It’s the perfect time to let all these ideas mingle and give birth to new ones.\n\nSo, welcome to my digital home. Whether you’re here to geek out over some data science projects, vibe to my latest tracks, or join me in reimagining urban mobility, you’re in for a ride. This is where all my passions converge—a testament to the beautiful complexity of being human in a world full of inspiration.\nLet’s explore, create, and dream together. Who knows? We might just change the world—or at least make it dance to a better beat."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome",
-    "section": "",
-    "text": "Hi, I’m Yoma—a data scientist by day, turning numbers into insights, and a music producer by night, crafting beats. When I’m not immersed in data or music, you can find me geeking out over public transportation systems, especially in Jakarta. Discover more about my journey here, or learn about my data career here."
+    "text": "With nearly two years of experience as a data scientist, I’ve had the chance to dive deep into advanced analytics and machine learning, helping to turn complex data into actionable insights. From creating dashboards that keep teams in the loop to building models that predict user behavior, I’ve enjoyed working on projects that make a real impact. I’m all about automating processes and finding creative ways to solve problems, all while staying curious and passionate about what I do.\nYou can check out my full resume below for more details."
   }
 ]
