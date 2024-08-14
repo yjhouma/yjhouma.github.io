@@ -1,0 +1,37 @@
+---
+title: "A Symphony of Numbers, Beats, and City Streets"
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-title: "Who Am I?"
+    toc-depth: 3
+
+---
+
+
+Hey there! I'm Yohanes Jhouma Parulian Napitupulu (my friends call me Yoma), and my life is a bit like a mash-up track—blending the precision of data, the rhythm of hip-hop, and the flow of city transit into one unique composition.
+
+## The Data Scientist: Where Math Meets Machines
+My love affair with numbers started early. Growing up, I was that kid who got excited about math problems. But it wasn't until I stepped into the halls of Institut Teknologi Bandung that I found my true calling. Studying computer science, I was on a mission to find the sweet spot where quantitative thinking meets the digital world. That's when I stumbled upon the wonderland of Data Science and Machine Learning.
+
+Now, I spend my days turning raw data into stories, finding patterns in the chaos, and teaching machines to think. It's like being a modern-day alchemist, but instead of turning lead into gold, I'm transforming numbers into insights that can change the game for businesses and beyond.
+
+## The Beat Maker: Sampling Life's Rhythms
+But when the sun goes down, I trade algorithms for audio samples. Music has always been my first love, with hip-hop stealing my heart. There's something magical about this genre—it's complex yet simple, raw yet refined. I'm fascinated by the art of sampling, the way it weaves the old with the new to create something entirely fresh.
+
+My journey as a music producer kicked off when Tyler, the Creator's "IGOR" hit my eardrums. That album? Pure sonic poetry. It was like someone flipped a switch in my brain, and suddenly, I had to create. Now, I'm on a mission to craft beats that make heads nod and hearts soar, blending the gritty authenticity of hip-hop with my own unique flavor.
+
+## The Transit Enthusiast: Dreaming of a Connected Jakarta
+By day, I'm part of the pulsing lifeblood of Jakarta, riding its buses and trains to work. But I'm not just any commuter—I'm a dreamer with a vision of a Jakarta where public transit is the first choice, not the last resort. Every day, as I navigate the city's arteries, I'm imagining a future where the majority of Jakartans leave their cars at home, opting instead for a seamless, efficient public transportation network.
+
+It's more than just a pipe dream. It's about transforming our urban landscape, reducing our carbon footprint, and bringing people together in shared spaces. Who knows? Maybe one day, my data skills and my passion for urban planning will intersect to help make this vision a reality.
+
+## The Human Equation: Where It All Comes Together
+You might wonder how data science, hip-hop production, and public transportation fit together. Well, they don't—at least not in any conventional sense. But that's what makes life beautiful, isn't it? I'm not just a data scientist who happens to make music, or a beat maker with a weird obsession with bus routes. I'm a human being, constantly inspired by the world around me, driven by the things I consume, the dreams I harbor, and the environment that shapes me.
+
+In my work, my music, and my aspirations for my city, you'll find echoes of each part of me. The precision of data science influences the structure of my beats. The creativity of music production inspires new ways to visualize data. And my daily commute? It's the perfect time to let all these ideas mingle and give birth to new ones.
+--- 
+So, welcome to my digital home. Whether you're here to geek out over some data science projects, vibe to my latest tracks, or join me in reimagining urban mobility, you're in for a ride. This is where all my passions converge—a testament to the beautiful complexity of being human in a world full of inspiration.
+
+Let's explore, create, and dream together. Who knows? We might just change the world—or at least make it dance to a better beat.

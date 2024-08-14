@@ -1,0 +1,14 @@
+---
+title: "My Experiences"
+---
+
+
+With nearly two years of experience as a data scientist, I've had the chance to dive deep into advanced analytics and machine learning, helping to turn complex data into actionable insights. From creating dashboards that keep teams in the loop to building models that predict user behavior, I’ve enjoyed working on projects that make a real impact. I’m all about automating processes and finding creative ways to solve problems, all while staying curious and passionate about what I do.
+
+You can check out my full resume below for more details.
+
+
+
+
+
+<embed src="resume/Resume_YohanesJhouma.pdf" width="100%" height="100%" type="application/pdf">

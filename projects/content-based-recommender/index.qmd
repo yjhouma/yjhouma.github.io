@@ -1,0 +1,502 @@
+---
+title: Creating a Content-based Recommender System
+author: "Yohanes Jhouma Parulian N"
+date: "2024-06-15"
+
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-title: "On this page"
+    toc-depth: 3
+---
+
+
+
+# Libraries for this project
+
+
+```{python}
+import pandas as pd
+from sklearn.metrics.pairwise import cosine_similarity
+import pandas as pd
+import numpy as np
+import json
+```
+
+# Introduction
+
+Have you ever had a friend ask you to recommend a movie or song based on something they just watched or listened to? It's pretty common, right? You think about what they might like, considering their taste, and suggest something similar. That's basically what a recommender system does, but with a lot more data and a bit more sophistication.
+
+Recommender systems are like your personal assistant, suggesting things you might like based on your preferences and behavior. They're everywhere: Netflix suggests movies, Spotify recommends songs, and Amazon points you to products you might want to buy.
+
+In general, there are three types od recommender systems:
+
+1. **Content-Based**. Imagine you just watched a movie with your favorite genre. A content-based system would suggest other movies with similar genres and plot.
+
+2. **Collaborative Filtering**. Think of Netflix or Spotify, where you get recommendations based on what other users with similar tastes liked.
+
+3. **Hybrid**. Like the name suggests, this recommender system combine both content-based and colaborative filtering to give a more accurate suggestions.
+
+
+In this project, we're building a content-based recommender system using the TMDB 5000 dataset. We'll create a system that can suggest movies based on their content.
+
+# Dataset
+
+For this project, we're using the TMDB 5000 dataset, which is a collection of movie information gathered from [The Movie Database (TMDB)](https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata). This dataset provides a wealth of details about movies, including metadata like titles, genres, plot summaries, cast and crew, release dates, and user ratings.
+
+
+
+## Structure of the Dataset
+The TMDB 5000 dataset consists of two main files:
+
+1. **movies_metadata.csv**: Contains metadata for each movie, including title, genres, overview, release date, and more.
+2. **credits.csv**: Contains information about the cast and crew for each movie.
+
+
+### Movies Metadata
+
+
+```{python}
+movies_metadata_df = pd.read_csv('data/tmdb_5000_movies.csv')
+movies_metadata_df.shape
+```
+
+```{python}
+movies_metadata_df.head(3)
+```
+
+### Movies Credit
+
+```{python}
+movies_credit_df = pd.read_csv('data/tmdb_5000_credits.csv')
+movies_credit_df.shape
+```
+
+```{python}
+movies_credit_df.head(3)
+```
+
+# Data Preprocessing
+
+```{python}
+movies_metadata_df.info()
+```
+
+```{python}
+movies_credit_df.info()
+```
+
+### Combining both tables
+
+```{python}
+movies_df = movies_metadata_df.merge(movies_credit_df.drop('title',axis=1),left_on='id',right_on='movie_id', how='left').drop('movie_id', axis=1)
+```
+
+## Handling missing value
+
+As can be seen in the previous chunk of code, there are some columns with missing values. Generally, we need to handle these missing values. In this case, we are lucky because most of the missing values are not directly related to the content of the movie. For example, the homepage is unlikely to be a significant factor when recommending a movie.
+
+On the other hand, the overview column contains a summary of the movie's plot, which is crucial for our recommendation system. Therefore, we need to handle missing values in this column carefully.
+
+For now, we will ignore missing values in columns that do not directly impact the movie content and drop rows with missing values in crucial columns like overview.
+
+Although tagline can contains information crucial for the content, we choose not to drop rows with missing values in the tagline column. The tagline is a more condensed version of the information in the overview, meaning its information is already covered by the overview. Therefore, the absence of a tagline does not significantly impact our ability to recommend movies based on their content. Additionally not all movie have a tagline.
+
+```{python}
+movies_df = movies_df[~movies_df['overview'].isna()].reset_index(drop=True)
+```
+
+```{python}
+movies_df.info()
+```
+
+# Exploratory Data Analysis
+
+Since we have a content-based recommender system in mind, we will explore the data that contains information about the content of the movie. Imagine that your friend comes to you and says, "I've just watched The Dark Knight and I love it. Do you know any other movies like that?" There are several factors you can consider to give your friend recommendations:
+
+1. **The Genre**. Maybe your friend likes action-packed movies or superhero movies. Considering this, you can recommend other action or superhero movies.
+
+2. **Keywords of the Movie**. This movie might have some keywords attached to it, like DC Comics, superhero, Batman. Considering this, you can recommend not only random superhero movies but something like Superman or Wonder Woman that share the same keywords.
+
+3. **The Plot**. Maybe your friend is interested in movies with similar plots. A movie where the hero has to save a city from a terrorist attack, for example.
+
+4. **The Director**. Each movie director has their own style. Maybe your friend is more interested in the style of Christopher Nolan.
+
+
+Considering all these factors and many others is the key to making a reliable recommender system.
+
+
+
+## Exploring Genre
+
+### How many Genre a movie have?
+
+```{python}
+movies_df['genres'].apply(lambda x: len(json.loads(x))).describe()
+```
+
+```{python}
+movies_df['genres'].apply(lambda x: len(json.loads(x))).value_counts().sort_index().plot.bar()
+```
+
+As can be seen in the description and the plot, a movie can have a range of 0-7 genres. A movie with 0 genres can be considered as a movie for which we don't know the genre. From the visualization, we can see that most movies have 2 to 3 genres associated with them.
+
+### Genre Distribution
+
+```{python}
+def create_genre_list(x):
+    genre_movie = []
+    jdata = json.loads(x)
+    for d in jdata:
+        genre_movie.append(d['name'])
+    return genre_movie
+
+
+genre_series = []
+
+for i, r in movies_df.iterrows():
+    genre_series += create_genre_list(r['genres'])
+
+genre_series = pd.Series(genre_series)
+```
+
+```{python}
+genre_series.value_counts().plot.bar()
+```
+
+```{python}
+len(genre_series.value_counts())
+```
+
+We can see there are 20 genres recorded in total. From these 20 genres, the most common one is drama. However, keep in mind that what makes a movie unique is not just a single genre but combinations of genres. For example, an Action-Comedy movie will have a very different tone from an Action-Mystery movie. Therefore, it is important to maintain this connection later when we create our recommender system.
+
+## Exploring Keywords
+
+### Numbers of Keywords in a movie
+
+```{python}
+movies_df['keywords'].apply(lambda x: len(json.loads(x))).describe()
+```
+
+```{python}
+movies_df['keywords'].apply(lambda x: len(json.loads(x))).value_counts().sort_index().plot.bar()
+```
+
+Unlike genres, a movie can have a lot more keywords associated with it. In our database, it can range up to 97 keywords, with a median of 6. This means half of the movies have at least 6 keywords attached to them. 
+
+## How many keywords there are
+
+```{python}
+keywords = []
+for i,r in movies_df.iterrows():
+    jdata = json.loads(r['keywords'])
+    for d in jdata:
+        keywords.append(d['name'])
+
+keywords = pd.Series(keywords)
+```
+
+```{python}
+len(keywords.unique())
+```
+
+```{python}
+keywords.value_counts().describe()
+```
+
+The total number of keywords available is 9808, however, only a quarter of them appear in at least three different movies. We can keep this in mind, since a keyword that appears only in one or two movies will not provide much information for the recommender system.
+
+## Exploring Overview/The plot description
+
+### How many words contained in an overview?
+
+```{python}
+movies_df['overview'].apply(lambda x: len(x.split())).describe()
+```
+
+```{python}
+movies_df['overview'].apply(lambda x: len(x.split())).hist()
+```
+
+```{python}
+movies_df[movies_df['overview'].apply(lambda x: len(x.split())) == 0]
+```
+
+As can be seen that the range of overview length is between 0 to 175. Remember that we've drop a movie with no overview. It seems like there are still a movie that don't have an overview. Since it's only one movie i think it is fair to also drop this movie
+
+```{python}
+movies_df = movies_df[movies_df['overview'].apply(lambda x: len(x.split())) > 0].reset_index(drop=True)
+```
+
+## Exploring Director
+
+### Extracting Director from the Crew
+
+```{python}
+def return_director(x):
+
+    jdata = json.loads(x)
+    for d in jdata:
+        if d['job'] == 'Director':
+            return d['name']
+    
+    return ''
+```
+
+```{python}
+movies_df['crew'].apply(return_director).value_counts().describe()
+```
+
+```{python}
+movies_df['crew'].apply(return_director).value_counts()[:20].plot.bar()
+```
+
+```{python}
+movies_df['director'] = movies_df['crew'].apply(return_director)
+```
+
+There are 2346 director recorded in the data, however the majority of them only have one movie directed by them. With the same logic as keywords, we need to keep in mind that the director with only few movies will not enrich our recommender system
+
+# Feature Engineering
+
+## Considering Ranking and Scoring
+
+When you recommend something to someone, you usually rank options based on how well they match what the person likes. In recommender systems, we do the same by calculating a score for each item. This score tells us how relevant each item is to the user's interests, and we use these scores to rank the items.
+
+In a recommender system, feature engineering is all about transforming raw data into something meaningful that can be used to make recommendations. Considering scoring in recommender systems, we need to transform all the content we have into something that can be quantified. In other words, we have to extract the features into vectors that we can calculate the similarities.
+
+## Genres
+
+For our genres, we want to make a vector representation that considers that a movie can have more than one genre. Since there are only 20 genres available, it is reasonable for us to use a binary vector.
+
+For example, if there are three genres only: Action, Drama, and Comedy:
+* A movie with Action-Drama genres will be represented with 1 1 0.
+* A movie with Drama-Comedy genres will be represented with 0 1 1.
+
+```{python}
+from sklearn.preprocessing import FunctionTransformer
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+
+def extract_genre(X):
+    genre_matrix = []
+    for d in X:
+        row_genres = []
+        jdata = json.loads(d)
+        for j in jdata:
+            row_genres.append(j['name'])
+        genre_matrix.append(row_genres)
+
+    return genre_matrix
+
+genre_extractor = FunctionTransformer(extract_genre)
+```
+
+```{python}
+genre_vectorizer = CountVectorizer(analyzer= lambda x: x, binary=True)
+
+genre_matrix = genre_vectorizer.fit_transform(genre_extractor.fit_transform(movies_df['genres'])).toarray()
+```
+
+```{python}
+genre_matrix
+```
+
+## Keywords
+
+We're using TF-IDF (Term Frequency-Inverse Document Frequency) to convert keywords into vectors. TF-IDF helps capture the importance of each keyword by balancing how often a keyword appears in a movie against how common it is across all movies. This way, unique keywords for specific movies get more weight, while common ones get less.
+
+Since we know that most keywords appear only once or twice, we won't need to map those keywords to the vector. This can reduce our dimensionality significantly without losing much information. For now, we will map only keywords that appear at least 5 times.
+
+
+
+
+```{python}
+def extract_keywords(X):
+    keywords_matrix = []
+    for d in X:
+        row_keywords = []
+        jdata = json.loads(d)
+        for j in jdata:
+            row_keywords.append(j['name'])
+        keywords_matrix.append(row_keywords)
+
+    return keywords_matrix
+
+keywords_extractor = FunctionTransformer(extract_keywords)
+```
+
+```{python}
+keywords_vectorizer = TfidfVectorizer(analyzer= lambda x: x, min_df=5, binary=True)
+keywords_matrix = keywords_vectorizer.fit_transform(keywords_extractor.fit_transform(movies_df['keywords'])).toarray()
+```
+
+```{python}
+keywords_matrix
+```
+
+## Overview
+
+For plot overviews, we will use Sentence-BERT (SBERT) to create embeddings. Sentence Transformers, based on the SBERT architecture, allow us to convert text into high-dimensional vectors that capture the semantic meaning of the text.
+
+Unlike simple TF-IDF, SBERT captures the deeper semantic meaning of the text, understanding the context and relationships between words. SBERT is particularly effective for longer texts like plot overviews, providing a more nuanced representation than TF-IDF.
+Using SBERT embeddings for plot overviews helps us create rich, meaningful representations of the movie plots, enhancing the quality of our recommendations.
+
+
+
+```{python}
+from sklearn.base import BaseEstimator, TransformerMixin
+from sentence_transformers import SentenceTransformer
+
+
+class SbertTransformer(BaseEstimator, TransformerMixin):
+    def __init__(self, model_name="all-MiniLM-L6-v2") -> None:
+        self.model_name =model_name
+        self.model = SentenceTransformer(model_name)
+    
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X):
+        return self.model.encode(X.str.lower())
+```
+
+```{python}
+overview_embedder = SbertTransformer() # Using small model
+overview_embeddings = overview_embedder.fit_transform(movies_df['overview'])
+```
+
+```{python}
+overview_embeddings.shape
+```
+
+## Director
+
+We can use similar logic as keywords and genres to vectorize director information. Since director with a few movie wont help us much in term of recommendation, we will use only director with more than 4 movie to vectorize. Due to the fact a movie can only have one director we will be usinng binary representation instead of tfidf
+
+```{python}
+movies_df['director']
+```
+
+```{python}
+director_vectorizer = CountVectorizer(analyzer= lambda x: [x] if x != '' else [], binary=True, min_df=5)
+
+
+director_matrix = director_vectorizer.fit_transform(movies_df['director']).toarray()
+```
+
+```{python}
+director_matrix.shape
+```
+
+## Putting it Together
+
+```{python}
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+```
+
+### Creating Pipeline for Feature Extraction
+
+```{python}
+# Pipeline for Genre Feature Extraction
+
+genre_pipeline = Pipeline([
+    ('genre_extractor', FunctionTransformer(extract_genre)),
+    ('genre_vectorizer', CountVectorizer(analyzer= lambda x: x, binary=True))
+])
+
+
+# Pipeline for Keywords Feature Extraction
+
+keywords_pipeline = Pipeline([
+    ('keywords_extractor', FunctionTransformer(extract_keywords)),
+    ('keywords_vectorizer', TfidfVectorizer(analyzer= lambda x: x, min_df=5, binary=True))
+])
+
+```
+
+### Joining all feature
+
+```{python}
+feature_extractor = ColumnTransformer([
+    ('genres_pipeline', genre_pipeline, "genres"),
+    ('keywords_pipeline', keywords_pipeline, "keywords"),
+    ('overview_pipeline', SbertTransformer(), "overview"),
+    ('director_pipeline', CountVectorizer(analyzer= lambda x: [x] if x != '' else [], binary=True, min_df=5), "director")
+])
+```
+
+```{python}
+feature_matrix = feature_extractor.fit_transform(movies_df).toarray()
+```
+
+```{python}
+feature_matrix
+```
+
+# Build a Recommender System
+
+Remember that I mentioned about scoring and ranking. Now in order to actually recommend a movie, we need to score their similirarity to each other. There are several ways to do this, but the most common one for data involving text is **Cosine Similarity**.
+
+Cosine similarity measures how similar two items are by looking at the angle between their vectors. Think of it as comparing the direction of two arrows, regardless of their length. If the arrows point in the same direction, they're similar. In addition to that, It's quick and can handle lots of data without much fuss.
+
+```{python}
+movies_list = movies_df[['id','original_title']].copy()
+```
+
+```{python}
+similarity_matrix = cosine_similarity(feature_matrix, feature_matrix)
+```
+
+```{python}
+def find_similar_movie_using_similarity(movie_id: int):
+    indx = movies_list[movies_list['id'] == movie_id].index.tolist()[0]
+    top_similar = sorted(list(enumerate(similarity_matrix[indx])), key=lambda x: x[1], reverse=True)[1:11]
+    recommended_movies = movies_list.iloc[[t[0] for t in top_similar]].copy()
+    recommended_movies['similarity_score'] = [t[1] for t in top_similar]
+    return recommended_movies
+```
+
+## Running the Recommender Function
+
+Now let's use this recommender system to recommend movies to our friend who just watched Batman Begins.
+
+```{python}
+movies_list[movies_list['original_title'].str.contains('Batman')]
+```
+
+```{python}
+batman_begins_id = 272
+```
+
+```{python}
+find_similar_movie_using_similarity(batman_begins_id)
+```
+
+As can be seen from our algorithm, when asked to recommend movies like "Batman Begins," it recommends "The Dark Knight" and "The Dark Knight Rises," which are sequels to the movie. On top of that, we also see movies with some detective and superhero vibes. This indicates that our content-based recommender system is effectively identifying and recommending movies that share significant characteristics with the user's input, thus providing relevant and meaningful suggestions.
+
+# Improving Recomender System
+
+Can we improve this model? Yes. In order to improve a model, we need a strategy to quantify the performance of the model itself. In terms of recommender systems, one common evaluation metric is Precision at K (P@K). Precision at K measures the relevance of the top K recommendations made by the system. It is defined as the proportion of recommended items in the top K set that are relevant.
+
+Unfortunately, our dataset is not ideal for evaluating the recommender system since we don't have the actual user consumption data. Without knowing what movies users have actually watched and liked, we can't accurately measure how well our recommendations match user preferences.
+
+That being said, there are several strategies to improve the model:
+1. **Give Different Weight to Each Feature:** Currently, we are treating every feature as equally important. Depending on the case, this might not be the most optimal. By adjusting the weights of different features (e.g., giving more importance to plot similarity over genre similarity), we can potentially improve the relevance of our recommendations.
+    
+2. **Add More Relevant Features:** We can incorporate additional features that are relevant to the content of the movie, such as the cast, the director, or even more granular details like the sound engineer. These additional features can provide a richer context for making recommendations.
+
+3. **Combine Content-Based Approach with Collaborative Filtering:** Creating a hybrid recommender system by combining content-based filtering with collaborative filtering can leverage the strengths of both approaches. While content-based filtering focuses on item attributes, collaborative filtering leverages user behavior and preferences. This combination can result in more accurate and personalized recommendations.
+
+# Conclusion
+
+
+Building a content-based recommender system using the TMDB 5000 dataset has allowed us to explore various aspects of feature engineering and similarity scoring. By converting genres into binary vectors, using TF-IDF for keywords, and employing SBERT for plot overviews, we created a comprehensive model capable of providing relevant movie recommendations.
+
+Our model, when asked to recommend movies like "Batman Begins," successfully suggested sequels like "The Dark Knight" and "The Dark Knight Rises," as well as other movies with similar detective and superhero vibes. This demonstrates the effectiveness of our content-based approach in capturing the nuances of movie content.
+
+However, there is always room for improvement. Precision at K (P@K) is a common metric for evaluating recommender systems, but our dataset lacks actual user consumption data, which limits our ability to accurately measure performance.
+
