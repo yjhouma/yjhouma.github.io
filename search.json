@@ -1,0 +1,198 @@
+[
+  {
+    "objectID": "blogs.html",
+    "href": "blogs.html",
+    "title": "Blogs",
+    "section": "",
+    "text": "Modal Soul: A Love Letter to Music\n\n\n\nmusic\n\n\nalbum review\n\n\nhip-hop\n\n\n\n\n\n\n\nYohanes Jhouma Parulian N\n\n\nAug 14, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Date\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nJun 15, 2024\n\n\nCreating a Content-based Recommender System\n\n\nYohanes Jhouma Parulian N\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html",
+    "href": "projects/content-based-recommender/index.html",
+    "title": "Creating a Content-based Recommender System",
+    "section": "",
+    "text": "import pandas as pd\nfrom sklearn.metrics.pairwise import cosine_similarity\nimport pandas as pd\nimport numpy as np\nimport json"
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html#structure-of-the-dataset",
+    "href": "projects/content-based-recommender/index.html#structure-of-the-dataset",
+    "title": "Creating a Content-based Recommender System",
+    "section": "Structure of the Dataset",
+    "text": "Structure of the Dataset\nThe TMDB 5000 dataset consists of two main files:\n\nmovies_metadata.csv: Contains metadata for each movie, including title, genres, overview, release date, and more.\ncredits.csv: Contains information about the cast and crew for each movie.\n\n\nMovies Metadata\n\nmovies_metadata_df = pd.read_csv('data/tmdb_5000_movies.csv')\nmovies_metadata_df.shape\n\n(4803, 20)\n\n\n\nmovies_metadata_df.head(3)\n\n\n\n\n\n\n\n\nbudget\ngenres\nhomepage\nid\nkeywords\noriginal_language\noriginal_title\noverview\npopularity\nproduction_companies\nproduction_countries\nrelease_date\nrevenue\nruntime\nspoken_languages\nstatus\ntagline\ntitle\nvote_average\nvote_count\n\n\n\n\n0\n237000000\n[{\"id\": 28, \"name\": \"Action\"}, {\"id\": 12, \"nam...\nhttp://www.avatarmovie.com/\n19995\n[{\"id\": 1463, \"name\": \"culture clash\"}, {\"id\":...\nen\nAvatar\nIn the 22nd century, a paraplegic Marine is di...\n150.437577\n[{\"name\": \"Ingenious Film Partners\", \"id\": 289...\n[{\"iso_3166_1\": \"US\", \"name\": \"United States o...\n2009-12-10\n2787965087\n162.0\n[{\"iso_639_1\": \"en\", \"name\": \"English\"}, {\"iso...\nReleased\nEnter the World of Pandora.\nAvatar\n7.2\n11800\n\n\n1\n300000000\n[{\"id\": 12, \"name\": \"Adventure\"}, {\"id\": 14, \"...\nhttp://disney.go.com/disneypictures/pirates/\n285\n[{\"id\": 270, \"name\": \"ocean\"}, {\"id\": 726, \"na...\nen\nPirates of the Caribbean: At World's End\nCaptain Barbossa, long believed to be dead, ha...\n139.082615\n[{\"name\": \"Walt Disney Pictures\", \"id\": 2}, {\"...\n[{\"iso_3166_1\": \"US\", \"name\": \"United States o...\n2007-05-19\n961000000\n169.0\n[{\"iso_639_1\": \"en\", \"name\": \"English\"}]\nReleased\nAt the end of the world, the adventure begins.\nPirates of the Caribbean: At World's End\n6.9\n4500\n\n\n2\n245000000\n[{\"id\": 28, \"name\": \"Action\"}, {\"id\": 12, \"nam...\nhttp://www.sonypictures.com/movies/spectre/\n206647\n[{\"id\": 470, \"name\": \"spy\"}, {\"id\": 818, \"name...\nen\nSpectre\nA cryptic message from Bond’s past sends him o...\n107.376788\n[{\"name\": \"Columbia Pictures\", \"id\": 5}, {\"nam...\n[{\"iso_3166_1\": \"GB\", \"name\": \"United Kingdom\"...\n2015-10-26\n880674609\n148.0\n[{\"iso_639_1\": \"fr\", \"name\": \"Fran\\u00e7ais\"},...\nReleased\nA Plan No One Escapes\nSpectre\n6.3\n4466\n\n\n\n\n\n\n\n\n\nMovies Credit\n\nmovies_credit_df = pd.read_csv('data/tmdb_5000_credits.csv')\nmovies_credit_df.shape\n\n(4803, 4)\n\n\n\nmovies_credit_df.head(3)\n\n\n\n\n\n\n\n\nmovie_id\ntitle\ncast\ncrew\n\n\n\n\n0\n19995\nAvatar\n[{\"cast_id\": 242, \"character\": \"Jake Sully\", \"...\n[{\"credit_id\": \"52fe48009251416c750aca23\", \"de...\n\n\n1\n285\nPirates of the Caribbean: At World's End\n[{\"cast_id\": 4, \"character\": \"Captain Jack Spa...\n[{\"credit_id\": \"52fe4232c3a36847f800b579\", \"de...\n\n\n2\n206647\nSpectre\n[{\"cast_id\": 1, \"character\": \"James Bond\", \"cr...\n[{\"credit_id\": \"54805967c3a36829b5002c41\", \"de..."
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html#handling-missing-value",
+    "href": "projects/content-based-recommender/index.html#handling-missing-value",
+    "title": "Creating a Content-based Recommender System",
+    "section": "Handling missing value",
+    "text": "Handling missing value\nAs can be seen in the previous chunk of code, there are some columns with missing values. Generally, we need to handle these missing values. In this case, we are lucky because most of the missing values are not directly related to the content of the movie. For example, the homepage is unlikely to be a significant factor when recommending a movie.\nOn the other hand, the overview column contains a summary of the movie’s plot, which is crucial for our recommendation system. Therefore, we need to handle missing values in this column carefully.\nFor now, we will ignore missing values in columns that do not directly impact the movie content and drop rows with missing values in crucial columns like overview.\nAlthough tagline can contains information crucial for the content, we choose not to drop rows with missing values in the tagline column. The tagline is a more condensed version of the information in the overview, meaning its information is already covered by the overview. Therefore, the absence of a tagline does not significantly impact our ability to recommend movies based on their content. Additionally not all movie have a tagline.\n\nmovies_df = movies_df[~movies_df['overview'].isna()].reset_index(drop=True)\n\n\nmovies_df.info()\n\n&lt;class 'pandas.core.frame.DataFrame'&gt;\nRangeIndex: 4800 entries, 0 to 4799\nData columns (total 22 columns):\n #   Column                Non-Null Count  Dtype  \n---  ------                --------------  -----  \n 0   budget                4800 non-null   int64  \n 1   genres                4800 non-null   object \n 2   homepage              1712 non-null   object \n 3   id                    4800 non-null   int64  \n 4   keywords              4800 non-null   object \n 5   original_language     4800 non-null   object \n 6   original_title        4800 non-null   object \n 7   overview              4800 non-null   object \n 8   popularity            4800 non-null   float64\n 9   production_companies  4800 non-null   object \n 10  production_countries  4800 non-null   object \n 11  release_date          4799 non-null   object \n 12  revenue               4800 non-null   int64  \n 13  runtime               4800 non-null   float64\n 14  spoken_languages      4800 non-null   object \n 15  status                4800 non-null   object \n 16  tagline               3959 non-null   object \n 17  title                 4800 non-null   object \n 18  vote_average          4800 non-null   float64\n 19  vote_count            4800 non-null   int64  \n 20  cast                  4800 non-null   object \n 21  crew                  4800 non-null   object \ndtypes: float64(3), int64(4), object(15)\nmemory usage: 825.1+ KB"
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html#exploring-genre",
+    "href": "projects/content-based-recommender/index.html#exploring-genre",
+    "title": "Creating a Content-based Recommender System",
+    "section": "Exploring Genre",
+    "text": "Exploring Genre\n\nHow many Genre a movie have?\n\nmovies_df['genres'].apply(lambda x: len(json.loads(x))).describe()\n\ncount    4800.000000\nmean        2.532708\nstd         1.120651\nmin         0.000000\n25%         2.000000\n50%         2.000000\n75%         3.000000\nmax         7.000000\nName: genres, dtype: float64\n\n\n\nmovies_df['genres'].apply(lambda x: len(json.loads(x))).value_counts().sort_index().plot.bar()\n\n\n\n\n\n\n\n\nAs can be seen in the description and the plot, a movie can have a range of 0-7 genres. A movie with 0 genres can be considered as a movie for which we don’t know the genre. From the visualization, we can see that most movies have 2 to 3 genres associated with them.\n\n\nGenre Distribution\n\ndef create_genre_list(x):\n    genre_movie = []\n    jdata = json.loads(x)\n    for d in jdata:\n        genre_movie.append(d['name'])\n    return genre_movie\n\n\ngenre_series = []\n\nfor i, r in movies_df.iterrows():\n    genre_series += create_genre_list(r['genres'])\n\ngenre_series = pd.Series(genre_series)\n\n\ngenre_series.value_counts().plot.bar()\n\n\n\n\n\n\n\n\n\nlen(genre_series.value_counts())\n\n20\n\n\nWe can see there are 20 genres recorded in total. From these 20 genres, the most common one is drama. However, keep in mind that what makes a movie unique is not just a single genre but combinations of genres. For example, an Action-Comedy movie will have a very different tone from an Action-Mystery movie. Therefore, it is important to maintain this connection later when we create our recommender system."
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html#exploring-keywords",
+    "href": "projects/content-based-recommender/index.html#exploring-keywords",
+    "title": "Creating a Content-based Recommender System",
+    "section": "Exploring Keywords",
+    "text": "Exploring Keywords\n\nNumbers of Keywords in a movie\n\nmovies_df['keywords'].apply(lambda x: len(json.loads(x))).describe()\n\ncount    4800.000000\nmean        7.538750\nstd         6.280662\nmin         0.000000\n25%         3.000000\n50%         6.000000\n75%        11.000000\nmax        97.000000\nName: keywords, dtype: float64\n\n\n\nmovies_df['keywords'].apply(lambda x: len(json.loads(x))).value_counts().sort_index().plot.bar()\n\n\n\n\n\n\n\n\nUnlike genres, a movie can have a lot more keywords associated with it. In our database, it can range up to 97 keywords, with a median of 6. This means half of the movies have at least 6 keywords attached to them."
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html#how-many-keywords-there-are",
+    "href": "projects/content-based-recommender/index.html#how-many-keywords-there-are",
+    "title": "Creating a Content-based Recommender System",
+    "section": "How many keywords there are",
+    "text": "How many keywords there are\n\nkeywords = []\nfor i,r in movies_df.iterrows():\n    jdata = json.loads(r['keywords'])\n    for d in jdata:\n        keywords.append(d['name'])\n\nkeywords = pd.Series(keywords)\n\n\nlen(keywords.unique())\n\n9808\n\n\n\nkeywords.value_counts().describe()\n\ncount    9808.000000\nmean        3.689437\nstd         9.669485\nmin         1.000000\n25%         1.000000\n50%         1.000000\n75%         3.000000\nmax       324.000000\nName: count, dtype: float64\n\n\nThe total number of keywords available is 9808, however, only a quarter of them appear in at least three different movies. We can keep this in mind, since a keyword that appears only in one or two movies will not provide much information for the recommender system."
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html#exploring-overviewthe-plot-description",
+    "href": "projects/content-based-recommender/index.html#exploring-overviewthe-plot-description",
+    "title": "Creating a Content-based Recommender System",
+    "section": "Exploring Overview/The plot description",
+    "text": "Exploring Overview/The plot description\n\nHow many words contained in an overview?\n\nmovies_df['overview'].apply(lambda x: len(x.split())).describe()\n\ncount    4800.000000\nmean       52.157292\nstd        27.867016\nmin         0.000000\n25%        30.000000\n50%        48.000000\n75%        67.000000\nmax       175.000000\nName: overview, dtype: float64\n\n\n\nmovies_df['overview'].apply(lambda x: len(x.split())).hist()\n\n\n\n\n\n\n\n\n\nmovies_df[movies_df['overview'].apply(lambda x: len(x.split())) == 0]\n\n\n\n\n\n\n\n\nbudget\ngenres\nhomepage\nid\nkeywords\noriginal_language\noriginal_title\noverview\npopularity\nproduction_companies\n...\nrevenue\nruntime\nspoken_languages\nstatus\ntagline\ntitle\nvote_average\nvote_count\ncast\ncrew\n\n\n\n\n4399\n0\n[{\"id\": 28, \"name\": \"Action\"}, {\"id\": 35, \"nam...\nNaN\n43630\n[]\nen\nThe Helix... Loaded\n\n0.0206\n[]\n...\n0\n97.0\n[{\"iso_639_1\": \"en\", \"name\": \"English\"}]\nRumored\nNaN\nThe Helix... Loaded\n4.8\n2\n[]\n[]\n\n\n\n\n1 rows × 22 columns\n\n\n\nAs can be seen that the range of overview length is between 0 to 175. Remember that we’ve drop a movie with no overview. It seems like there are still a movie that don’t have an overview. Since it’s only one movie i think it is fair to also drop this movie\n\nmovies_df = movies_df[movies_df['overview'].apply(lambda x: len(x.split())) &gt; 0].reset_index(drop=True)"
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html#exploring-director",
+    "href": "projects/content-based-recommender/index.html#exploring-director",
+    "title": "Creating a Content-based Recommender System",
+    "section": "Exploring Director",
+    "text": "Exploring Director\n\nExtracting Director from the Crew\n\ndef return_director(x):\n\n    jdata = json.loads(x)\n    for d in jdata:\n        if d['job'] == 'Director':\n            return d['name']\n    \n    return ''\n\n\nmovies_df['crew'].apply(return_director).value_counts().describe()\n\ncount    2347.000000\nmean        2.044738\nstd         2.173457\nmin         1.000000\n25%         1.000000\n50%         1.000000\n75%         2.000000\nmax        29.000000\nName: count, dtype: float64\n\n\n\nmovies_df['crew'].apply(return_director).value_counts()[:20].plot.bar()\n\n\n\n\n\n\n\n\n\nmovies_df['director'] = movies_df['crew'].apply(return_director)\n\nThere are 2346 director recorded in the data, however the majority of them only have one movie directed by them. With the same logic as keywords, we need to keep in mind that the director with only few movies will not enrich our recommender system"
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html#considering-ranking-and-scoring",
+    "href": "projects/content-based-recommender/index.html#considering-ranking-and-scoring",
+    "title": "Creating a Content-based Recommender System",
+    "section": "Considering Ranking and Scoring",
+    "text": "Considering Ranking and Scoring\nWhen you recommend something to someone, you usually rank options based on how well they match what the person likes. In recommender systems, we do the same by calculating a score for each item. This score tells us how relevant each item is to the user’s interests, and we use these scores to rank the items.\nIn a recommender system, feature engineering is all about transforming raw data into something meaningful that can be used to make recommendations. Considering scoring in recommender systems, we need to transform all the content we have into something that can be quantified. In other words, we have to extract the features into vectors that we can calculate the similarities."
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html#genres",
+    "href": "projects/content-based-recommender/index.html#genres",
+    "title": "Creating a Content-based Recommender System",
+    "section": "Genres",
+    "text": "Genres\nFor our genres, we want to make a vector representation that considers that a movie can have more than one genre. Since there are only 20 genres available, it is reasonable for us to use a binary vector.\nFor example, if there are three genres only: Action, Drama, and Comedy: * A movie with Action-Drama genres will be represented with 1 1 0. * A movie with Drama-Comedy genres will be represented with 0 1 1.\n\nfrom sklearn.preprocessing import FunctionTransformer\nfrom sklearn.feature_extraction.text import CountVectorizer\nfrom sklearn.feature_extraction.text import TfidfVectorizer\n\n\ndef extract_genre(X):\n    genre_matrix = []\n    for d in X:\n        row_genres = []\n        jdata = json.loads(d)\n        for j in jdata:\n            row_genres.append(j['name'])\n        genre_matrix.append(row_genres)\n\n    return genre_matrix\n\ngenre_extractor = FunctionTransformer(extract_genre)\n\n\ngenre_vectorizer = CountVectorizer(analyzer= lambda x: x, binary=True)\n\ngenre_matrix = genre_vectorizer.fit_transform(genre_extractor.fit_transform(movies_df['genres'])).toarray()\n\n\ngenre_matrix\n\narray([[1, 1, 0, ..., 0, 0, 0],\n       [1, 1, 0, ..., 0, 0, 0],\n       [1, 1, 0, ..., 0, 0, 0],\n       ...,\n       [0, 0, 0, ..., 0, 0, 0],\n       [0, 0, 0, ..., 0, 0, 0],\n       [0, 0, 0, ..., 0, 0, 0]])"
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html#keywords",
+    "href": "projects/content-based-recommender/index.html#keywords",
+    "title": "Creating a Content-based Recommender System",
+    "section": "Keywords",
+    "text": "Keywords\nWe’re using TF-IDF (Term Frequency-Inverse Document Frequency) to convert keywords into vectors. TF-IDF helps capture the importance of each keyword by balancing how often a keyword appears in a movie against how common it is across all movies. This way, unique keywords for specific movies get more weight, while common ones get less.\nSince we know that most keywords appear only once or twice, we won’t need to map those keywords to the vector. This can reduce our dimensionality significantly without losing much information. For now, we will map only keywords that appear at least 5 times.\n\ndef extract_keywords(X):\n    keywords_matrix = []\n    for d in X:\n        row_keywords = []\n        jdata = json.loads(d)\n        for j in jdata:\n            row_keywords.append(j['name'])\n        keywords_matrix.append(row_keywords)\n\n    return keywords_matrix\n\nkeywords_extractor = FunctionTransformer(extract_keywords)\n\n\nkeywords_vectorizer = TfidfVectorizer(analyzer= lambda x: x, min_df=5, binary=True)\nkeywords_matrix = keywords_vectorizer.fit_transform(keywords_extractor.fit_transform(movies_df['keywords'])).toarray()\n\n\nkeywords_matrix\n\narray([[0., 0., 0., ..., 0., 0., 0.],\n       [0., 0., 0., ..., 0., 0., 0.],\n       [0., 0., 0., ..., 0., 0., 0.],\n       ...,\n       [0., 0., 0., ..., 0., 0., 0.],\n       [0., 0., 0., ..., 0., 0., 0.],\n       [0., 0., 0., ..., 0., 0., 0.]])"
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html#overview",
+    "href": "projects/content-based-recommender/index.html#overview",
+    "title": "Creating a Content-based Recommender System",
+    "section": "Overview",
+    "text": "Overview\nFor plot overviews, we will use Sentence-BERT (SBERT) to create embeddings. Sentence Transformers, based on the SBERT architecture, allow us to convert text into high-dimensional vectors that capture the semantic meaning of the text.\nUnlike simple TF-IDF, SBERT captures the deeper semantic meaning of the text, understanding the context and relationships between words. SBERT is particularly effective for longer texts like plot overviews, providing a more nuanced representation than TF-IDF. Using SBERT embeddings for plot overviews helps us create rich, meaningful representations of the movie plots, enhancing the quality of our recommendations.\n\nfrom sklearn.base import BaseEstimator, TransformerMixin\nfrom sentence_transformers import SentenceTransformer\n\n\nclass SbertTransformer(BaseEstimator, TransformerMixin):\n    def __init__(self, model_name=\"all-MiniLM-L6-v2\") -&gt; None:\n        self.model_name =model_name\n        self.model = SentenceTransformer(model_name)\n    \n    def fit(self, X, y=None):\n        return self\n\n    def transform(self, X):\n        return self.model.encode(X.str.lower())\n\n/opt/homebrew/Caskroom/miniforge/base/envs/forecasting/lib/python3.10/site-packages/sentence_transformers/cross_encoder/CrossEncoder.py:11: TqdmExperimentalWarning:\n\nUsing `tqdm.autonotebook.tqdm` in notebook mode. Use `tqdm.tqdm` instead to force console mode (e.g. in jupyter console)\n\n\n\n\noverview_embedder = SbertTransformer() # Using small model\noverview_embeddings = overview_embedder.fit_transform(movies_df['overview'])\n\n\noverview_embeddings.shape\n\n(4799, 384)"
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html#director",
+    "href": "projects/content-based-recommender/index.html#director",
+    "title": "Creating a Content-based Recommender System",
+    "section": "Director",
+    "text": "Director\nWe can use similar logic as keywords and genres to vectorize director information. Since director with a few movie wont help us much in term of recommendation, we will use only director with more than 4 movie to vectorize. Due to the fact a movie can only have one director we will be usinng binary representation instead of tfidf\n\nmovies_df['director']\n\n0           James Cameron\n1          Gore Verbinski\n2              Sam Mendes\n3       Christopher Nolan\n4          Andrew Stanton\n              ...        \n4794     Robert Rodriguez\n4795         Edward Burns\n4796          Scott Smith\n4797          Daniel Hsia\n4798     Brian Herzlinger\nName: director, Length: 4799, dtype: object\n\n\n\ndirector_vectorizer = CountVectorizer(analyzer= lambda x: [x] if x != '' else [], binary=True, min_df=5)\n\n\ndirector_matrix = director_vectorizer.fit_transform(movies_df['director']).toarray()\n\n\ndirector_matrix.shape\n\n(4799, 211)"
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html#putting-it-together",
+    "href": "projects/content-based-recommender/index.html#putting-it-together",
+    "title": "Creating a Content-based Recommender System",
+    "section": "Putting it Together",
+    "text": "Putting it Together\n\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.compose import ColumnTransformer\n\n\nCreating Pipeline for Feature Extraction\n\n# Pipeline for Genre Feature Extraction\n\ngenre_pipeline = Pipeline([\n    ('genre_extractor', FunctionTransformer(extract_genre)),\n    ('genre_vectorizer', CountVectorizer(analyzer= lambda x: x, binary=True))\n])\n\n\n# Pipeline for Keywords Feature Extraction\n\nkeywords_pipeline = Pipeline([\n    ('keywords_extractor', FunctionTransformer(extract_keywords)),\n    ('keywords_vectorizer', TfidfVectorizer(analyzer= lambda x: x, min_df=5, binary=True))\n])\n\n\n\nJoining all feature\n\nfeature_extractor = ColumnTransformer([\n    ('genres_pipeline', genre_pipeline, \"genres\"),\n    ('keywords_pipeline', keywords_pipeline, \"keywords\"),\n    ('overview_pipeline', SbertTransformer(), \"overview\"),\n    ('director_pipeline', CountVectorizer(analyzer= lambda x: [x] if x != '' else [], binary=True, min_df=5), \"director\")\n])\n\n\nfeature_matrix = feature_extractor.fit_transform(movies_df).toarray()\n\n\nfeature_matrix\n\narray([[1., 1., 0., ..., 0., 0., 0.],\n       [1., 1., 0., ..., 0., 0., 0.],\n       [1., 1., 0., ..., 0., 0., 0.],\n       ...,\n       [0., 0., 0., ..., 0., 0., 0.],\n       [0., 0., 0., ..., 0., 0., 0.],\n       [0., 0., 0., ..., 0., 0., 0.]])"
+  },
+  {
+    "objectID": "projects/content-based-recommender/index.html#running-the-recommender-function",
+    "href": "projects/content-based-recommender/index.html#running-the-recommender-function",
+    "title": "Creating a Content-based Recommender System",
+    "section": "Running the Recommender Function",
+    "text": "Running the Recommender Function\nNow let’s use this recommender system to recommend movies to our friend who just watched Batman Begins.\n\nmovies_list[movies_list['original_title'].str.contains('Batman')]\n\n\n\n\n\n\n\n\nid\noriginal_title\n\n\n\n\n9\n209112\nBatman v Superman: Dawn of Justice\n\n\n119\n272\nBatman Begins\n\n\n210\n415\nBatman & Robin\n\n\n299\n414\nBatman Forever\n\n\n428\n364\nBatman Returns\n\n\n1359\n268\nBatman\n\n\n3853\n142061\nBatman: The Dark Knight Returns, Part 2\n\n\n4265\n2661\nBatman\n\n\n\n\n\n\n\n\nbatman_begins_id = 272\n\n\nfind_similar_movie_using_similarity(batman_begins_id)\n\n\n\n\n\n\n\n\nid\noriginal_title\nsimilarity_score\n\n\n\n\n65\n155\nThe Dark Knight\n0.792444\n\n\n3\n49026\nThe Dark Knight Rises\n0.770914\n\n\n3325\n312113\nBlack November\n0.663642\n\n\n1742\n254473\nBrick Mansions\n0.659899\n\n\n4634\n378237\nAmidst the Devil's Wings\n0.630629\n\n\n3358\n22314\nIn Too Deep\n0.625375\n\n\n1486\n7220\nThe Punisher\n0.624695\n\n\n3818\n34769\nDefendor\n0.622456\n\n\n3827\n9516\nMenace II Society\n0.612793\n\n\n1661\n9989\nAntitrust\n0.607391\n\n\n\n\n\n\n\nAs can be seen from our algorithm, when asked to recommend movies like “Batman Begins,” it recommends “The Dark Knight” and “The Dark Knight Rises,” which are sequels to the movie. On top of that, we also see movies with some detective and superhero vibes. This indicates that our content-based recommender system is effectively identifying and recommending movies that share significant characteristics with the user’s input, thus providing relevant and meaningful suggestions."
+  },
+  {
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "My Experiences",
+    "section": "",
+    "text": "With nearly two years of experience as a data scientist, I’ve had the chance to dive deep into advanced analytics and machine learning, helping to turn complex data into actionable insights. From creating dashboards that keep teams in the loop to building models that predict user behavior, I’ve enjoyed working on projects that make a real impact. I’m all about automating processes and finding creative ways to solve problems, all while staying curious and passionate about what I do.\nYou can check out my full resume below for more details."
+  },
+  {
+    "objectID": "blogposts/modal-soul-review/index.html",
+    "href": "blogposts/modal-soul-review/index.html",
+    "title": "Modal Soul: A Love Letter to Music",
+    "section": "",
+    "text": "“What’s the best album of all time?”\nIt’s a question that’s sparked countless debates, fueled endless discussions, and perhaps even ended a few friendships (looking at you, Apple Music). Ask a hundred music lovers, and you’ll likely get a hundred different answers. The beauty of music, after all, lies in its subjectivity.\nBut what if I told you there’s an album so transcendent, so masterfully crafted, that it doesn’t just enter the conversation - it changes it entirely?\nEnter Modal Soul by Nujabes.\nNow, I’m not here to claim it’s definitively the greatest album ever created. That would be a disservice to the vast tapestry of musical genius that spans genres and generations. But I am here to make a bold statement: Modal Soul isn’t just a contender for the title of best album - it’s a front-runner that demands your attention and deserves your reverence."
+  },
+  {
+    "objectID": "blogposts/modal-soul-review/index.html#the-soulful-maestro-jun-seba-a.k.a-nujabes",
+    "href": "blogposts/modal-soul-review/index.html#the-soulful-maestro-jun-seba-a.k.a-nujabes",
+    "title": "Modal Soul: A Love Letter to Music",
+    "section": "The Soulful Maestro: Jun Seba, a.k.a Nujabes",
+    "text": "The Soulful Maestro: Jun Seba, a.k.a Nujabes\nPicture this: It’s 11:30 PM, your desk lamp casts a warm glow over scattered textbooks, and your laptop screen flickers with that familiar looping animation of an anime girl studying. The gentle, hypnotic beats flowing through your headphones are your lifeline, keeping you focused and calm as you tackle that seemingly insurmountable pile of coursework. Sound familiar?\nIf you’ve ever found yourself lost in the soothing embrace of lo-fi hip-hop, particularly during those late-night study sessions, you’ve been touched by the legacy of a musical genius: Jun Seba, better known to the world as Nujabes.\nNujabes isn’t just another name in the vast sea of music producers. He’s a legend, a pioneer, a maestro who orchestrated a revolution in sound that continues to reverberate through the music industry long after his untimely departure. Walk into the hallowed halls of Shibuya’s Tower Records in Tokyo, and you’ll find an entire section dedicated to this one man, proudly emblazoned with the title “Godfather of Lo-Fi Hip-Hop.” It’s not just a catchy moniker; it’s a testament to his enduring influence.\nBut who was Nujabes, really? And how did his music become the blueprint for an entire genre that has comforted and inspired millions? To understand this, we need to dive into his magnum opus, the album that encapsulates everything that made Nujabes a true musical visionary: Modal Soul."
+  },
+  {
+    "objectID": "blogposts/modal-soul-review/index.html#the-album-a-symphony-of-samples-and-beats",
+    "href": "blogposts/modal-soul-review/index.html#the-album-a-symphony-of-samples-and-beats",
+    "title": "Modal Soul: A Love Letter to Music",
+    "section": "The Album: A Symphony of Samples and Beats",
+    "text": "The Album: A Symphony of Samples and Beats\nAt first glance, Modal Soul might seem like just another hip-hop album with jazz samples. But Nujabes’ approach to production sets it apart, creating a sonic landscape that’s as revolutionary as it is mesmerizing.\nNujabes’ sampling technique is the cornerstone of his unique sound. Unlike his contemporaries, who often chopped samples for rhythmic effect, Nujabes selected samples for their emotional weight. He would often preserve the melodic integrity of his samples, layering them with minimal alterations. Take “Reflection Eternal,” where he samples the intro from “I Miss You” by Noriko Kose, retaining its full melodic idea. He then adds a vocal sample from Kenny Rankin’s “Marie” and a classic boom-bap drum pattern, resulting in a track that’s both groovy and profoundly soulful.\nThis approach extends to his drum patterns, which are a study in minimalism. The beats are there to elevate, not dominate, striking a perfect balance between carrying the groove and complementing the melodic samples. This creates a sound that feels more introspective and soul-stirring compared to beat-heavy productions.\nNujabes wasn’t confined to one genre, either. While jazz was his primary influence, Modal Soul showcased his diverse musical palette. “World’s End Rhapsody,” for instance, starts with a soul/funk sample but concludes with a four-on-the-floor pattern reminiscent of house music, all while maintaining the classic boom-bap drum sound.\nIn tracks featuring vocals, Nujabes treated the human voice as another instrument in the mix, integrating it seamlessly with the instrumental elements rather than allowing it to dominate. This approach is brilliantly exemplified in “Luv(sic.) pt3” featuring Shing02. In this track, Shing02’s verses flow like another layer in the musical tapestry, perfectly balanced with the melodic samples and beats. The vocals don’t overpower the instrumentation but instead complement it, creating a harmonious blend that enhances the overall mood and emotional impact of the song."
+  },
+  {
+    "objectID": "blogposts/modal-soul-review/index.html#personal-resonance-my-journey-through-modal-soul",
+    "href": "blogposts/modal-soul-review/index.html#personal-resonance-my-journey-through-modal-soul",
+    "title": "Modal Soul: A Love Letter to Music",
+    "section": "Personal Resonance: My Journey Through Modal Soul",
+    "text": "Personal Resonance: My Journey Through Modal Soul\nThis album isn’t just a collection of tracks; it’s a gateway, a portal into the rich, textured world of Nujabes’ musical genius.\nFor anyone looking to explore Nujabes’ discography, Modal Soul is the perfect launching pad. It’s like being handed a masterfully crafted map before embarking on an epic journey. Each track is a stepping stone, guiding you deeper into the lush soundscapes that define Nujabes’ unique style.\nNow, let’s be real - no album is perfect, and Modal Soul has its peaks and valleys. But here’s the thing: even in its low moments, there’s a sense of intentionality. It’s as if Nujabes carefully orchestrated every high and low, creating a musical journey that mimics the ebbs and flows of life itself. Nothing feels out of place or accidental; every note, every sample, every beat feels like it’s exactly where it’s meant to be.\nWhat struck me most was Nujabes’ approach to sampling. It’s not just about finding a cool sound to loop. No, it’s much more than that. Listening to Modal Soul feels like you’re privy to Nujabes’ love letter to music itself. Each sample is treated with reverence, carefully woven into the fabric of the song in a way that honors its origin while creating something entirely new. It’s not appropriation; it’s a celebration, an homage to the music that inspired him.\nSo, who should listen to this album? Well, if you’re a fan of old-school boom-bap hip-hop, this is a no-brainer. Jazz enthusiasts? You’re in for a treat. But honestly, I’d go further. I’d recommend Modal Soul to anyone who appreciates music, period. There’s something in this album for everyone - a groove, a melody, a mood that will resonate with you, regardless of your usual musical preferences.\nIn the end, Modal Soul isn’t just an album you listen to; it’s an experience you immerse yourself in. It’s a testament to Nujabes’ artistry, a benchmark in the evolution of hip-hop, and a timeless piece of music that continues to inspire and move listeners. Whether you’re discovering Nujabes for the first time or revisiting this classic, Modal Soul promises a journey through sound that you won’t soon forget."
+  },
+  {
+    "objectID": "my-story.html",
+    "href": "my-story.html",
+    "title": "A Symphony of Numbers, Beats, and City Streets",
+    "section": "",
+    "text": "Hey there! I’m Yohanes Jhouma Parulian Napitupulu (my friends call me Yoma), and my life is a bit like a mash-up track—blending the precision of data, the rhythm of hip-hop, and the flow of city transit into one unique composition."
+  },
+  {
+    "objectID": "my-story.html#the-data-scientist-where-math-meets-machines",
+    "href": "my-story.html#the-data-scientist-where-math-meets-machines",
+    "title": "A Symphony of Numbers, Beats, and City Streets",
+    "section": "The Data Scientist: Where Math Meets Machines",
+    "text": "The Data Scientist: Where Math Meets Machines\nMy love affair with numbers started early. Growing up, I was that kid who got excited about math problems. But it wasn’t until I stepped into the halls of Institut Teknologi Bandung that I found my true calling. Studying computer science, I was on a mission to find the sweet spot where quantitative thinking meets the digital world. That’s when I stumbled upon the wonderland of Data Science and Machine Learning.\nNow, I spend my days turning raw data into stories, finding patterns in the chaos, and teaching machines to think. It’s like being a modern-day alchemist, but instead of turning lead into gold, I’m transforming numbers into insights that can change the game for businesses and beyond."
+  },
+  {
+    "objectID": "my-story.html#the-beat-maker-sampling-lifes-rhythms",
+    "href": "my-story.html#the-beat-maker-sampling-lifes-rhythms",
+    "title": "A Symphony of Numbers, Beats, and City Streets",
+    "section": "The Beat Maker: Sampling Life’s Rhythms",
+    "text": "The Beat Maker: Sampling Life’s Rhythms\nBut when the sun goes down, I trade algorithms for audio samples. Music has always been my first love, with hip-hop stealing my heart. There’s something magical about this genre—it’s complex yet simple, raw yet refined. I’m fascinated by the art of sampling, the way it weaves the old with the new to create something entirely fresh.\nMy journey as a music producer kicked off when Tyler, the Creator’s “IGOR” hit my eardrums. That album? Pure sonic poetry. It was like someone flipped a switch in my brain, and suddenly, I had to create. Now, I’m on a mission to craft beats that make heads nod and hearts soar, blending the gritty authenticity of hip-hop with my own unique flavor."
+  },
+  {
+    "objectID": "my-story.html#the-transit-enthusiast-dreaming-of-a-connected-jakarta",
+    "href": "my-story.html#the-transit-enthusiast-dreaming-of-a-connected-jakarta",
+    "title": "A Symphony of Numbers, Beats, and City Streets",
+    "section": "The Transit Enthusiast: Dreaming of a Connected Jakarta",
+    "text": "The Transit Enthusiast: Dreaming of a Connected Jakarta\nBy day, I’m part of the pulsing lifeblood of Jakarta, riding its buses and trains to work. But I’m not just any commuter—I’m a dreamer with a vision of a Jakarta where public transit is the first choice, not the last resort. Every day, as I navigate the city’s arteries, I’m imagining a future where the majority of Jakartans leave their cars at home, opting instead for a seamless, efficient public transportation network.\nIt’s more than just a pipe dream. It’s about transforming our urban landscape, reducing our carbon footprint, and bringing people together in shared spaces. Who knows? Maybe one day, my data skills and my passion for urban planning will intersect to help make this vision a reality."
+  },
+  {
+    "objectID": "my-story.html#the-human-equation-where-it-all-comes-together",
+    "href": "my-story.html#the-human-equation-where-it-all-comes-together",
+    "title": "A Symphony of Numbers, Beats, and City Streets",
+    "section": "The Human Equation: Where It All Comes Together",
+    "text": "The Human Equation: Where It All Comes Together\nYou might wonder how data science, hip-hop production, and public transportation fit together. Well, they don’t—at least not in any conventional sense. But that’s what makes life beautiful, isn’t it? I’m not just a data scientist who happens to make music, or a beat maker with a weird obsession with bus routes. I’m a human being, constantly inspired by the world around me, driven by the things I consume, the dreams I harbor, and the environment that shapes me.\nIn my work, my music, and my aspirations for my city, you’ll find echoes of each part of me. The precision of data science influences the structure of my beats. The creativity of music production inspires new ways to visualize data. And my daily commute? It’s the perfect time to let all these ideas mingle and give birth to new ones.\n\nSo, welcome to my digital home. Whether you’re here to geek out over some data science projects, vibe to my latest tracks, or join me in reimagining urban mobility, you’re in for a ride. This is where all my passions converge—a testament to the beautiful complexity of being human in a world full of inspiration.\nLet’s explore, create, and dream together. Who knows? We might just change the world—or at least make it dance to a better beat."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome",
+    "section": "",
+    "text": "Hi, I’m Yoma—a data scientist by day, turning numbers into insights, and a music producer by night, crafting beats. When I’m not immersed in data or music, you can find me geeking out over public transportation systems, especially in Jakarta. Discover more about my journey here, or learn about my data career here."
+  }
+]
