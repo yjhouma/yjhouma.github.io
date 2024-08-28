@@ -1,14 +1,15 @@
 [
   {
-    "listing": "/projects.html",
+    "listing": "/blogs.html",
     "items": [
-      "/projects/content-based-recommender/index.html"
+      "/blogposts/public-transportation-could-save-jakarta/index.html",
+      "/blogposts/modal-soul-review/index.html"
     ]
   },
   {
-    "listing": "/blogs.html",
+    "listing": "/projects.html",
     "items": [
-      "/blogposts/modal-soul-review/index.html"
+      "/projects/content-based-recommender/index.html"
     ]
   }
 ]
