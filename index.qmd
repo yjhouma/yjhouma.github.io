@@ -1,6 +1,6 @@
 ---
 title: "Welcome"
-image: assets/favicon.png
+image: assets/profile.jpg
 about:
   template: jolla
   image-width: 10em

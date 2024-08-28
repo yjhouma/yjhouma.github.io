@@ -2,7 +2,6 @@
 title: Creating a Content-based Recommender System
 author: "Yohanes Jhouma Parulian N"
 date: "2024-06-15"
-
 format:
   html:
     toc: true
